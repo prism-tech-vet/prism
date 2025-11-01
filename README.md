@@ -1,4 +1,4 @@
-# PRISM marketing site
+# PRISM
 
 This is a small Vite + React scaffold for the PRISM website. It uses the Tailwind CDN for styling (so you don't need to run Tailwind compilation). The UI code is in `src/App.jsx` (the code you provided).
 
