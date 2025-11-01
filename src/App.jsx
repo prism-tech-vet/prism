@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Cloud, Zap, Database, Users, Box } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Cloud, Zap, Database, Users, Box, Cpu, Cog, Workflow, Globe, Layers, ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function App() {
   return (
-    <Router basename="/prism">
+    <Router>
       <div className="min-h-screen bg-gradient-to-b from-slate-900 via-slate-800 to-slate-950 text-slate-100">
         <Header />
         <main className="max-w-7xl mx-auto px-6 py-12">
@@ -48,7 +48,7 @@ function Home() {
         PRISM integrates CAD, PLM, ERP, and Ontology-based automation to empower manufacturers and innovators alike.
       </p>
       <div className="mt-8">
-        <Link to="/contact" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold">Get Started</Link>
+        <Link to="/overview" className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-semibold">Explore PRISM</Link>
       </div>
     </section>
   );
@@ -57,38 +57,77 @@ function Home() {
 function Overview() {
   return (
     <section className="mt-12">
-      <h3 className="text-3xl font-semibold mb-4">Why PRISM?</h3>
-      <p className="text-slate-300 max-w-3xl mx-auto">
-        PRISM bridges the gap between design, data, and decision-making by automating product development workflows.
+      <h3 className="text-3xl font-semibold mb-6 text-center">Revolutionizing Product Realization</h3>
+      <p className="text-slate-300 max-w-4xl mx-auto text-center mb-12">
+        PRISM unifies <b>PLM</b>, <b>CAD</b>, <b>ERP</b>, and <b>Ontology Automation</b> into one adaptive framework — enabling rapid, intelligent, and traceable product development from design to delivery.
       </p>
-      <div className="mt-6 grid md:grid-cols-3 gap-6">
-        <Stat icon={<Cloud />} title="Integrated" subtitle="PLM, CAD, ERP sync" />
-        <Stat icon={<Zap />} title="Automated" subtitle="Rule-driven redesigns" />
-        <Stat icon={<Database />} title="Explainable" subtitle="Ontology + traceable decisions" />
+
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <Feature icon={<Cloud />} title="Unified Ecosystem" desc="One central system linking PLM, ERP, and CAD to ensure synchronized design data." />
+        <Feature icon={<Cog />} title="Ontology-Driven Intelligence" desc="Ontology captures design logic and reasoning to automate repetitive tasks." />
+        <Feature icon={<Zap />} title="Workflow Automation" desc="Rule-based automation replaces manual redesign and validation cycles." />
+        <Feature icon={<Database />} title="Data Traceability" desc="End-to-end traceability across design, production, and version history." />
+        <Feature icon={<Workflow />} title="Seamless Collaboration" desc="All teams stay aligned through dynamic, live data synchronization." />
+        <Feature icon={<Globe />} title="Scalable & Open" desc="Integrates easily with industrial standards, scalable across enterprises." />
       </div>
     </section>
+  );
+}
+
+function Feature({ icon, title, desc }) {
+  return (
+    <motion.div whileHover={{ scale: 1.05 }} className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-start space-y-3 transition">
+      <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
+      <h4 className="text-lg font-semibold">{title}</h4>
+      <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+    </motion.div>
   );
 }
 
 function Modules() {
+  const moduleData = [
+    { icon: <Box />, title: 'CAD Automation', desc: 'Parametric model generation, variant updates, and rule-based redesigns with FreeCAD APIs connected to ontology.' },
+    { icon: <Cloud />, title: 'PLM Connector', desc: 'Integrates with nanoPLM to manage versions, revisions, and lifecycle states with live synchronization.' },
+    { icon: <Database />, title: 'ERP Bridge', desc: 'BOM, production data, and inventory updates flow seamlessly across enterprise systems.' },
+    { icon: <Layers />, title: 'Ontology Engine', desc: 'Links functional, material, and manufacturing constraints with semantic reasoning for smart automation.' },
+    { icon: <Cpu />, title: 'Simulation Interface', desc: 'Automates validation loops via integration with FEA and CFD tools like Ansys or Salome Meca.' },
+    { icon: <Users />, title: 'Collaboration Hub', desc: 'Central workspace for engineers, designers, and managers with task and feedback integration.' },
+  ];
+
   return (
     <section className="mt-16">
-      <h3 className="text-3xl font-semibold text-center mb-6">Core Modules</h3>
-      <div className="grid md:grid-cols-3 gap-6">
-        <ModuleCard title="CAD Automation" desc="Parametric FreeCAD integration with ontology linkage." />
-        <ModuleCard title="PLM Connector" desc="nanoPLM-based lifecycle management and change tracking." />
-        <ModuleCard title="ERP Bridge" desc="Seamless resource sync for production-ready outputs." />
+      <h3 className="text-3xl font-semibold text-center mb-8">Interactive Modules</h3>
+      <p className="text-slate-300 max-w-3xl mx-auto text-center mb-12">
+        Click on any module to learn more about how PRISM builds a seamless digital ecosystem across your organization.
+      </p>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {moduleData.map((m, i) => (
+          <CollapsibleModule key={i} {...m} />
+        ))}
       </div>
     </section>
   );
 }
 
-function ModuleCard({ title, desc }) {
+function CollapsibleModule({ icon, title, desc }) {
+  const [open, setOpen] = useState(false);
   return (
-    <div className="p-6 bg-slate-800 rounded-lg border border-slate-700">
-      <h4 className="text-lg font-semibold mb-2">{title}</h4>
-      <p className="text-slate-400 text-sm">{desc}</p>
-    </div>
+    <motion.div layout className="bg-slate-800 rounded-xl border border-slate-700 p-6">
+      <div className="flex justify-between items-center cursor-pointer" onClick={() => setOpen(!open)}>
+        <div className="flex items-center space-x-3">
+          <div className="w-10 h-10 grid place-items-center bg-slate-700 text-blue-400 rounded-lg">{icon}</div>
+          <h4 className="text-lg font-semibold">{title}</h4>
+        </div>
+        {open ? <ChevronUp /> : <ChevronDown />}
+      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="text-slate-400 text-sm leading-relaxed mt-3">
+            {desc}
+          </motion.p>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
@@ -96,9 +135,10 @@ function Team() {
   return (
     <section className="mt-16 text-center">
       <h3 className="text-3xl font-semibold mb-4">Our Team</h3>
-      <div className="flex justify-center gap-8 mt-8">
-        <TeamCard name="Suhani Kolhatkar" role="Ontology, CAD, and FEA Experts" />
-        <TeamCard name="Anand Khandekar" role="Ontology, CAD, and FEA Experts" />
+      <div className="flex justify-center gap-8 mt-8 flex-wrap">
+        <TeamCard name="Suhani Kolhatkar" role="Director, Validus EduTech" />
+        <TeamCard name="Anand Khandekar" role="Director, Validus EduTech" />
+        <TeamCard name="R&D Team" role="Ontology, CAD, and FEA Experts" />
       </div>
     </section>
   );
@@ -106,7 +146,7 @@ function Team() {
 
 function TeamCard({ name, role }) {
   return (
-    <div className="bg-slate-800 p-6 rounded-lg border border-slate-700 w-60">
+    <div className="bg-slate-800 p-6 rounded-lg border border-slate-700 w-60 hover:scale-105 transition">
       <div className="text-lg font-semibold">{name}</div>
       <div className="text-slate-400 text-sm">{role}</div>
     </div>
@@ -129,17 +169,5 @@ function Footer() {
     <footer className="mt-20 py-6 text-center border-t border-slate-800 text-slate-400 text-sm">
       © {new Date().getFullYear()} Validus EduTech — PRISM Vertical
     </footer>
-  );
-}
-
-function Stat({ icon, title, subtitle }) {
-  return (
-    <div className="p-4 rounded-lg bg-slate-800 border border-slate-700 flex gap-4 items-center">
-      <div className="w-12 h-12 grid place-items-center rounded bg-slate-700">{icon}</div>
-      <div>
-        <div className="text-sm font-medium">{title}</div>
-        <div className="text-slate-400 text-xs">{subtitle}</div>
-      </div>
-    </div>
   );
 }
