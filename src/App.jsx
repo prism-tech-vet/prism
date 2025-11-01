@@ -97,8 +97,8 @@ function Team() {
     <section className="mt-16 text-center">
       <h3 className="text-3xl font-semibold mb-4">Our Team</h3>
       <div className="flex justify-center gap-8 mt-8">
-        <TeamCard name="Suhani Kolhatkar" role="Director, Validus EduTech" />
-        <TeamCard name="R&D Team" role="Ontology, CAD, and FEA Experts" />
+        <TeamCard name="Suhani Kolhatkar" role="Ontology, CAD, and FEA Experts" />
+        <TeamCard name="Anand Khandekar" role="Ontology, CAD, and FEA Experts" />
       </div>
     </section>
   );
