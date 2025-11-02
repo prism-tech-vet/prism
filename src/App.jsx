@@ -40,77 +40,75 @@ function Header() {
 
 function Home() {
   function LandingPage() {
-      Parametric Redesigning and Intelligent Semantic Modeling
-      </motion.h2>
-      
-      <p className="mt-6 text-slate-400 max-w-2xl mx-auto leading-relaxed">
+    Parametric Redesigning and Intelligent Semantic Modeling
+    </motion.h2>
+
+    <p className="mt-6 text-slate-400 max-w-2xl mx-auto leading-relaxed">
       PRISM is a next-generation platform that transforms how MSMEs, startups, and industries approach product realization. It integrates <b>CAD Automation</b>, <b>PLM Connectivity</b>, <b>ERP Systems</b>, and <b>Ontology Intelligence</b> into one seamless digital ecosystem.
-      </p>
-      
-      <div className="grid md:grid-cols-3 gap-8 mt-16">
+    </p>
+
+    <div className="grid md:grid-cols-3 gap-8 mt-16">
       <Feature icon={<Zap />} title="Parametric Redesigning" desc="Instantly regenerate design variations with parametric rules — reducing redesign cycles by up to 80%." />
       <Feature icon={<Cog />} title="Intelligent Semantic Modeling" desc="Ontology-driven automation understands design logic, ensuring smarter, faster, and consistent product updates." />
       <Feature icon={<Layers />} title="Unified Digital Framework" desc="Connects PLM, ERP, and CAD in a single integrated environment that scales with your enterprise." />
-      </div>
-      
-      <div className="mt-20 text-center">
-      <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 1 }}>
-      <h3 className="text-3xl font-semibold mb-4 text-blue-400">Empowering MSMEs and Innovators</h3>
-      <p className="text-slate-400 max-w-3xl mx-auto">
-      PRISM democratizes digital manufacturing by bringing automation, knowledge-based engineering, and semantic reasoning to small and medium-scale industries — unlocking efficiency, affordability, and global competitiveness.
-      </p>
-      </motion.div>
-      </div>
+    </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+    <div className="mt-20 text-center">
+      <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ delay: 1 }}>
+        <h3 className="text-3xl font-semibold mb-4 text-blue-400">Empowering MSMEs and Innovators</h3>
+        <p className="text-slate-400 max-w-3xl mx-auto">
+          PRISM democratizes digital manufacturing by bringing automation, knowledge-based engineering, and semantic reasoning to small and medium-scale industries — unlocking efficiency, affordability, and global competitiveness.
+        </p>
+      </motion.div>
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
       <MiniFeature icon={<Rocket />} title="Accelerated Prototyping" />
       <MiniFeature icon={<Cpu />} title="Smart Simulation Loops" />
       <MiniFeature icon={<Lightbulb />} title="Knowledge-Based Design" />
       <MiniFeature icon={<Workflow />} title="Automated Workflows" />
-      </div>
-      
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+    </div>
+
+    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
       <MiniFeature icon={<Globe />} title="Global Scalability" />
       <MiniFeature icon={<Layers />} title="Connected Ecosystem" />
       <MiniFeature icon={<Cog />} title="Seamless Integration" />
       <MiniFeature icon={<Zap />} title="High Impact Innovation" />
-      </div>
-      
-      <div className="mt-16">
-      <Link to="/overview" className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold text-lg">Explore PRISM Ecosystem</Link>
-      </div>
+    </div>
 
-      <section className="mt-24 bg-slate-800 rounded-2xl p-10 shadow-xl border border-slate-700">
+    <div className="mt-16">
+      <Link to="/overview" className="bg-blue-600 hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold text-lg">Explore PRISM Ecosystem</Link>
+    </div>
+
+    <section className="mt-24 bg-slate-800 rounded-2xl p-10 shadow-xl border border-slate-700">
       <motion.h3 initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }} className="text-3xl font-bold text-blue-400 mb-6">Why PRISM?</motion.h3>
       <p className="text-slate-300 max-w-4xl mx-auto leading-relaxed text-lg">
-      PRISM stands out as a transformative framework for digital engineering — merging <b>parametric modeling</b>, <b>intelligent reasoning</b>, and <b>semantic interoperability</b>. It’s designed to help industries <b>reduce design dependency</b>, <b>shorten innovation cycles</b>, and <b>enable autonomous decision-making</b> through data-driven insights.
+        PRISM stands out as a transformative framework for digital engineering — merging <b>parametric modeling</b>, <b>intelligent reasoning</b>, and <b>semantic interoperability</b>. It’s designed to help industries <b>reduce design dependency</b>, <b>shorten innovation cycles</b>, and <b>enable autonomous decision-making</b> through data-driven insights.
       </p>
       <p className="text-slate-400 mt-6 max-w-3xl mx-auto">
-      By bridging design, manufacturing, and business intelligence, PRISM fuels Industry 4.0 adoption, ensuring every enterprise — big or small — can innovate without barriers.
+        By bridging design, manufacturing, and business intelligence, PRISM fuels Industry 4.0 adoption, ensuring every enterprise — big or small — can innovate without barriers.
       </p>
-      </section>
-      </section>
-      );
-      }
-
+    </section>
+  );
+  
   function Feature({ icon, title, desc }) {
     return (
       <motion.div whileHover={{ scale: 1.05 }} className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-center space-y-3 transition">
-      <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
-      <h4 className="text-lg font-semibold">{title}</h4>
-      <p className="text-slate-400 text-sm leading-relaxed text-center">{desc}</p>
+        <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
+        <h4 className="text-lg font-semibold">{title}</h4>
+        <p className="text-slate-400 text-sm leading-relaxed text-center">{desc}</p>
       </motion.div>
-      );
+    );
   }
 
   function MiniFeature({ icon, title }) {
     return (
       <motion.div whileHover={{ y: -5 }} className="flex flex-col items-center text-slate-300">
-      <div className="w-12 h-12 rounded-full bg-slate-700 grid place-items-center text-blue-400 mb-2">{icon}</div>
-      <span className="text-sm font-medium">{title}</span>
+        <div className="w-12 h-12 rounded-full bg-slate-700 grid place-items-center text-blue-400 mb-2">{icon}</div>
+        <span className="text-sm font-medium">{title}</span>
       </motion.div>
-      );
-      }
+    );
+  }
 }
 
 function Overview() {
@@ -181,7 +179,12 @@ function CollapsibleModule({ icon, title, desc }) {
       </div>
       <AnimatePresence>
         {open && (
-          <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="text-slate-400 text-sm leading-relaxed mt-3">
+          <motion.p
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="text-slate-400 text-sm leading-relaxed mt-3"
+          >
             {desc}
           </motion.p>
         )}
