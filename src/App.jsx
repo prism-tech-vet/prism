@@ -154,7 +154,16 @@ function Overview() {
   );
 }
 
-// ---------------- MODULES ----------------
+function Feature({ icon, title, desc }) {
+  return (
+    <motion.div whileHover={{ scale: 1.05 }} className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-start space-y-3 transition">
+      <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
+      <h4 className="text-lg font-semibold">{title}</h4>
+      <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
+    </motion.div>
+  );
+}
+
 function Modules() {
   const moduleData = [
     {
