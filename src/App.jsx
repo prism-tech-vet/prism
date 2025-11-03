@@ -71,17 +71,17 @@ function Home() {
       </p>
 
       <div className="mt-16 grid md:grid-cols-3 gap-8">
-        <Feature
+        <FeatureBox
           icon={<Zap />}
           title="Parametric Redesigning"
           desc="Auto-generate product variants with adaptive parameters — reducing redesign cycles by up to 80%."
         />
-        <Feature
+        <FeatureBox
           icon={<Cog />}
           title="Intelligent Semantic Modeling"
           desc="Ontology-driven automation understands engineering logic and drives data-aware design updates."
         />
-        <Feature
+        <FeatureBox
           icon={<Layers />}
           title="Unified Digital Framework"
           desc="Connects PLM, ERP, and CAD in one adaptive environment that evolves with your organization."
@@ -135,12 +135,12 @@ function Overview() {
       </p>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Feature icon={<Cloud />} title="Unified Ecosystem" desc="A single connected environment linking CAD, PLM, and ERP for frictionless data flow." />
-        <Feature icon={<Zap />} title="Automation at Core" desc="Reduce redesign bottlenecks using parametric rules and rule-based engineering." />
-        <Feature icon={<Cog />} title="Ontology Intelligence" desc="Semantic layer enables reasoning over design dependencies and decisions." />
-        <Feature icon={<Database />} title="Traceable Knowledge" desc="Every decision, change, and parameter is recorded for engineering transparency." />
-        <Feature icon={<Workflow />} title="Collaborative Intelligence" desc="Teams co-create with live versioning and real-time synchronization." />
-        <Feature icon={<Globe />} title="Scalable & Interoperable" desc="Easily connects with any open standard — from STEP files to ERP databases." />
+        <FeatureBox icon={<Cloud />} title="Unified Ecosystem" desc="A single connected environment linking CAD, PLM, and ERP for frictionless data flow." />
+        <FeatureBox icon={<Zap />} title="Automation at Core" desc="Reduce redesign bottlenecks using parametric rules and rule-based engineering." />
+        <FeatureBox icon={<Cog />} title="Ontology Intelligence" desc="Semantic layer enables reasoning over design dependencies and decisions." />
+        <FeatureBox icon={<Database />} title="Traceable Knowledge" desc="Every decision, change, and parameter is recorded for engineering transparency." />
+        <FeatureBox icon={<Workflow />} title="Collaborative Intelligence" desc="Teams co-create with live versioning and real-time synchronization." />
+        <FeatureBox icon={<Globe />} title="Scalable & Interoperable" desc="Easily connects with any open standard — from STEP files to ERP databases." />
       </div>
 
       <section className="mt-20 bg-slate-800 p-10 rounded-2xl border border-slate-700 text-center">
@@ -154,16 +154,7 @@ function Overview() {
   );
 }
 
-function Feature({ icon, title, desc }) {
-  return (
-    <motion.div whileHover={{ scale: 1.05 }} className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-start space-y-3 transition">
-      <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
-      <h4 className="text-lg font-semibold">{title}</h4>
-      <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
-    </motion.div>
-  );
-}
-
+// ---------------- MODULES ----------------
 function Modules() {
   const moduleData = [
     {
@@ -289,15 +280,12 @@ function Contact() {
 }
 
 // ---------------- REUSABLE COMPONENTS ----------------
-function Feature({ icon, title, desc }) {
+function FeatureBox({ icon, title, desc }) {
   return (
-    <motion.div
-      whileHover={{ scale: 1.05 }}
-      className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-center space-y-3 transition"
-    >
+    <motion.div whileHover={{ scale: 1.05 }} className="p-6 bg-slate-800 rounded-xl border border-slate-700 flex flex-col items-start space-y-3 transition">
       <div className="w-12 h-12 rounded-lg bg-slate-700 grid place-items-center text-blue-400">{icon}</div>
       <h4 className="text-lg font-semibold">{title}</h4>
-      <p className="text-slate-400 text-sm leading-relaxed text-center">{desc}</p>
+      <p className="text-slate-400 text-sm leading-relaxed">{desc}</p>
     </motion.div>
   );
 }
