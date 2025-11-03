@@ -123,82 +123,231 @@ function Home() {
 }
 
 // ---------------- OVERVIEW ----------------
+// ---------------- OVERVIEW ----------------
 function Overview() {
+  const usps = [
+    {
+      icon: <Globe className="w-8 h-8 text-blue-400" />,
+      title: "Open-Source Foundation",
+      desc: "PRISM is built on open technologies — no vendor lock-in or licensing costs. Open collaboration accelerates innovation and adoption.",
+    },
+    {
+      icon: <Zap className="w-8 h-8 text-yellow-400" />,
+      title: "Automation-Driven",
+      desc: "Parametric rules + semantic intelligence automate redesign cycles, drastically reducing manual effort and time-to-market.",
+    },
+    {
+      icon: <Database className="w-8 h-8 text-purple-400" />,
+      title: "Graph Database Backbone",
+      desc: "A graph-first semantic store enables reasoning, traceability and scalable linking of design knowledge across projects.",
+    },
+    {
+      icon: <Workflow className="w-8 h-8 text-cyan-400" />,
+      title: "Robust Engineering Pipeline",
+      desc: "Seamlessly connects CAD, PLM, ERP and ontology — ensuring consistent data flow and end-to-end traceability.",
+    },
+    {
+      icon: <Briefcase className="w-8 h-8 text-green-400" />,
+      title: "Secure & Controlled Sharing",
+      desc: "Designs and drawings are protected with fine-grained controls so teams share data safely while preserving IP.",
+    },
+  ];
+
   return (
-    <section className="mt-12">
-      <h3 className="text-3xl font-semibold mb-6 text-center text-blue-400">
-        Revolutionizing Product Realization
-      </h3>
-      <p className="text-slate-300 max-w-4xl mx-auto text-center mb-12">
-        PRISM creates a symbiotic bridge between <b>Design</b>, <b>Manufacturing</b>, and <b>Enterprise Systems</b>. It integrates 
-        PLM, ERP, CAD, and Ontology Automation into one adaptive, traceable, and intelligent framework — designed for scalability and semantic reasoning.
-      </p>
+    <section className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-white py-20 px-6">
+      <div className="max-w-6xl mx-auto space-y-14">
+        {/* HERO */}
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-4xl mx-auto"
+        >
+          <h1 className="text-4xl md:text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-400">
+            Redefining Product Realization through Open-Source Intelligence
+          </h1>
+          <p className="mt-4 text-slate-300 text-lg leading-relaxed">
+            PRISM unites parametric design, semantic reasoning and enterprise systems into one adaptive, intelligent framework —
+            turning static CAD into self-aware digital design twins that learn, adapt and scale.
+          </p>
+        </motion.div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <FeatureBox icon={<Cloud />} title="Unified Ecosystem" desc="A single connected environment linking CAD, PLM, and ERP for frictionless data flow." />
-        <FeatureBox icon={<Zap />} title="Automation at Core" desc="Reduce redesign bottlenecks using parametric rules and rule-based engineering." />
-        <FeatureBox icon={<Cog />} title="Ontology Intelligence" desc="Semantic layer enables reasoning over design dependencies and decisions." />
-        <FeatureBox icon={<Database />} title="Traceable Knowledge" desc="Every decision, change, and parameter is recorded for engineering transparency." />
-        <FeatureBox icon={<Workflow />} title="Collaborative Intelligence" desc="Teams co-create with live versioning and real-time synchronization." />
-        <FeatureBox icon={<Globe />} title="Scalable & Interoperable" desc="Easily connects with any open standard — from STEP files to ERP databases." />
+        {/* Mission & Vision */}
+        <div className="grid md:grid-cols-2 gap-8">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="bg-slate-800 border border-slate-700 p-8 rounded-2xl"
+          >
+            <h3 className="text-2xl font-semibold text-blue-300 mb-3">Our Mission</h3>
+            <p className="text-slate-300 leading-relaxed">
+              Democratize engineering automation using open technologies and semantic intelligence so every enterprise — regardless of size —
+              can innovate without costly dependencies.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+            className="bg-slate-800 border border-slate-700 p-8 rounded-2xl"
+          >
+            <h3 className="text-2xl font-semibold text-cyan-300 mb-3">Our Vision</h3>
+            <p className="text-slate-300 leading-relaxed">
+              Build an extensible design intelligence layer that converts designs into knowledge — enabling autonomous, traceable,
+              and continuously improving engineering systems across industries.
+            </p>
+          </motion.div>
+        </div>
+
+        {/* USPs */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          className="mt-6"
+        >
+          <h3 className="text-3xl font-semibold text-center text-blue-400 mb-8">Key Differentiators (USPs)</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {usps.map((u, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.12, duration: 0.5 }}
+                className="bg-slate-800 border border-slate-700 p-6 rounded-2xl hover:border-blue-400 transition"
+              >
+                <div className="mb-3">{u.icon}</div>
+                <h4 className="text-xl font-semibold text-blue-300">{u.title}</h4>
+                <p className="text-slate-400 mt-2">{u.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* CTA / Short Pitch */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="max-w-3xl mx-auto bg-gradient-to-r from-blue-700 to-cyan-700 p-8 rounded-3xl shadow-lg"
+        >
+          <h4 className="text-2xl font-semibold text-white mb-2">Investor Snapshot</h4>
+          <p className="text-slate-100 leading-relaxed">
+            PRISM is an IP-forward, modular platform with immediate integration potential across CAD, FEA and PLM stacks.
+            Its open-source roots accelerate adoption while the semantic + parametric architecture creates defensible product value
+            and enterprise scaling pathways.
+          </p>
+        </motion.div>
       </div>
-
-      <section className="mt-20 bg-slate-800 p-10 rounded-2xl border border-slate-700 text-center">
-        <h4 className="text-2xl font-semibold mb-4 text-blue-400">Our Vision</h4>
-        <p className="text-slate-300 max-w-3xl mx-auto leading-relaxed">
-          To democratize engineering automation for every enterprise, enabling a future where intelligent systems can
-          self-adapt, learn design logic, and bridge the digital divide between engineering and business intelligence.
-        </p>
-      </section>
     </section>
   );
 }
 
 // ---------------- MODULES ----------------
 function Modules() {
-  const moduleData = [
+  const modules = [
     {
-      icon: <Box />,
-      title: "CAD Automation",
-      desc: "Auto-regenerate parts and assemblies through parametric logic and FreeCAD APIs integrated with Ontology.",
+      title: "CAD Parametric Core",
+      desc: "Geometry, Constraints, and Degrees of Freedom form the adaptive foundation. This core ensures every model can morph intelligently when parameters change — maintaining design intent and structure.",
+      icon: <Box className="w-10 h-10 text-blue-400" />,
+      color: "from-blue-500/20 to-cyan-500/20",
     },
     {
-      icon: <Cloud />,
-      title: "PLM Connector",
-      desc: "Integrates with nanoPLM for version control, revision tracking, and digital thread continuity.",
+      title: "Semantic Ontology Engine",
+      desc: "Defines design intent, logical relationships, and dependencies through knowledge graphs — embedding meaning into engineering data and enabling semantic interoperability.",
+      icon: <Globe className="w-10 h-10 text-green-400" />,
+      color: "from-green-500/20 to-emerald-500/20",
     },
     {
-      icon: <Database />,
-      title: "ERP Bridge",
-      desc: "Synchronizes manufacturing data, BOMs, and production records to enterprise systems like Odoo or SAP.",
+      title: "Simulation & FEA Module",
+      desc: "Integrates stress, thermal, and modal analyses. It automates validation and links simulation data semantically with geometry and ontology — preserving design logic through every test cycle.",
+      icon: <Cpu className="w-10 h-10 text-purple-400" />,
+      color: "from-purple-500/20 to-pink-500/20",
     },
     {
-      icon: <Layers />,
-      title: "Ontology Engine",
-      desc: "Creates intelligent links between functions, materials, and constraints using semantic reasoning.",
+      title: "Machine Learning Layer",
+      desc: "Learns from historical design and performance data using ML-DOE and predictive modeling — discovering correlations and accelerating optimization with data-driven intelligence.",
+      icon: <Zap className="w-10 h-10 text-yellow-400" />,
+      color: "from-yellow-500/20 to-orange-500/20",
     },
     {
-      icon: <Cpu />,
-      title: "Simulation Interface",
-      desc: "Connects to FEA/CFD tools for automated analysis loops — validating designs faster and smarter.",
-    },
-    {
-      icon: <Users />,
-      title: "Collaboration Hub",
-      desc: "Brings cross-functional teams together for concurrent design, versioning, and review processes.",
+      title: "Knowledge Feedback Loop",
+      desc: "Continuously improves the system by reusing insights, auto-updating design parameters, and triggering intelligent redesigns — closing the loop for autonomous design evolution.",
+      icon: <Workflow className="w-10 h-10 text-pink-400" />,
+      color: "from-pink-500/20 to-rose-500/20",
     },
   ];
 
   return (
-    <section className="mt-16">
-      <h3 className="text-3xl font-semibold text-center mb-8 text-blue-400">Core Modules</h3>
-      <p className="text-slate-300 max-w-3xl mx-auto text-center mb-12">
-        Each PRISM module represents a key layer in building intelligent, connected, and future-ready enterprises.
-      </p>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {moduleData.map((m, i) => (
-          <CollapsibleModule key={i} {...m} />
-        ))}
+    <section className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-white py-24 relative">
+      <div className="max-w-6xl mx-auto px-6 text-center space-y-16">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="space-y-6"
+        >
+          <h1 className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+            PRISM Architecture
+          </h1>
+          <p className="text-slate-400 text-lg max-w-4xl mx-auto leading-relaxed">
+            The PRISM architecture seamlessly connects parametric design, semantic intelligence, and machine learning into a unified intelligent pipeline.  
+            Each layer enhances the next — enabling self-aware, adaptive, and continuously improving design systems.
+          </p>
+        </motion.div>
+
+        {/* Vertical Flow */}
+        <div className="relative flex flex-col items-center mt-16 space-y-12">
+          {/* Glowing Line */}
+          <div className="absolute left-1/2 top-0 bottom-0 w-[3px] bg-gradient-to-b from-blue-500 via-cyan-500 to-purple-500 opacity-30 -z-10"></div>
+
+          {/* Modules */}
+          {modules.map((mod, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 80 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15, duration: 0.6 }}
+              className={`w-full md:w-3/4 bg-gradient-to-r ${mod.color} rounded-2xl shadow-lg border border-slate-700 p-8 flex flex-col md:flex-row items-center text-left space-y-4 md:space-y-0 md:space-x-8 hover:scale-[1.02] hover:border-blue-400 transition-all duration-300`}
+            >
+              <div className="p-5 bg-slate-800/70 rounded-2xl shadow-md">
+                {mod.icon}
+              </div>
+              <div>
+                <h3 className="text-2xl font-semibold text-blue-300">{mod.title}</h3>
+                <p className="text-slate-300 mt-2 leading-relaxed">{mod.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Flow Summary Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.7 }}
+          className="mt-20 max-w-4xl mx-auto bg-slate-800/70 p-10 rounded-3xl border border-slate-700 text-left space-y-6"
+        >
+          <h2 className="text-3xl font-semibold text-center text-cyan-400">
+            The Intelligent Design Flow
+          </h2>
+          <p className="text-slate-300 text-lg leading-relaxed">
+            PRISM operates as a self-reinforcing design intelligence cycle:
+          </p>
+          <ul className="list-disc list-inside text-slate-400 space-y-2">
+            <li><b>CAD Core</b> defines geometry and constraints.</li>
+            <li><b>Ontology Engine</b> embeds meaning, rules, and logical dependencies.</li>
+            <li><b>Simulation/FEA</b> validates designs through physics-based testing.</li>
+            <li><b>Machine Learning</b> learns from outcomes, discovering optimization patterns.</li>
+            <li><b>Knowledge Feedback Loop</b> updates models intelligently, achieving automation with intent.</li>
+          </ul>
+          <p className="text-slate-400 leading-relaxed">
+            Together, these modules form a continuous intelligence pipeline — one that learns, adapts, and redefines the boundaries of engineering design.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
