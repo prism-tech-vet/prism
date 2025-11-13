@@ -22,7 +22,7 @@ export default function App() {
               <li><a href="#demos" className="hover:text-cyan-400 transition">Demos</a></li>
             </ul>
             <div className="flex-shrink-0 flex items-center justify-center">
-              <img src="./assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
+              <img src=".assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
             </div>
             <ul className="flex gap-8 text-sm">
               <li><a href="#features" className="hover:text-cyan-400 transition">Features</a></li>
