@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box, Zap, Play, Cpu, Mail, Globe } from 'lucide-react'
 
 export default function App() {
   return (
@@ -17,17 +18,17 @@ export default function App() {
         <header className="fixed top-0 left-0 w-full z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
           <nav className="max-w-7xl mx-auto flex justify-between items-center py-4 px-10">
             <ul className="flex gap-8 text-sm">
-              <li><a href="#product" className="hover:text-cyan-400 transition">Product</a></li>
-              <li><a href="#workflow" className="hover:text-cyan-400 transition">Workflow</a></li>
-              <li><a href="#demos" className="hover:text-cyan-400 transition">Demos</a></li>
+              <li><a href="#product" className="hover:text-cyan-400 transition flex items-center gap-2"><Box className="w-4 h-4 text-cyan-400" />Product</a></li>
+              <li><a href="#workflow" className="hover:text-cyan-400 transition flex items-center gap-2"><Zap className="w-4 h-4 text-cyan-400" />Workflow</a></li>
+              <li><a href="#demos" className="hover:text-cyan-400 transition flex items-center gap-2"><Play className="w-4 h-4 text-cyan-400" />Demos</a></li>
             </ul>
             <div className="flex-shrink-0 flex items-center justify-center">
-              <img src="assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
+              <img src="assests/PRISM_logo.svg" alt="PRISM Logo" className="h-14 w-auto" />
             </div>
             <ul className="flex gap-8 text-sm">
-              <li><a href="#features" className="hover:text-cyan-400 transition">Features</a></li>
-              <li><a href="#tech" className="hover:text-cyan-400 transition">Tech</a></li>
-              <li><a href="#contact" className="hover:text-cyan-400 transition">Contact</a></li>
+              <li><a href="#features" className="hover:text-cyan-400 transition flex items-center gap-2"><Zap className="w-4 h-4 text-cyan-400" />Features</a></li>
+              <li><a href="#tech" className="hover:text-cyan-400 transition flex items-center gap-2"><Cpu className="w-4 h-4 text-cyan-400" />Tech</a></li>
+              <li><a href="#contact" className="hover:text-cyan-400 transition flex items-center gap-2"><Mail className="w-4 h-4 text-cyan-400" />Contact</a></li>
             </ul>
           </nav>
         </header>
@@ -71,36 +72,53 @@ export default function App() {
         <section id="demos" className="py-24 px-6 bg-black">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-12">Experience PRISM in Action</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-12">
                   <video className="w-300 h-300 object-cover" controls>
                     <source src='assests/demo1.mp4' type="video/mp4" />
                   </video>
                   <div className="text-left flex flex-col justify-center" >
                     <p className="text-gray-300 text-lg">
-                      <strong className="text-cyan-400">Demo 1:</strong> Watch how PRISM automates the redesign of a mechanical part by adjusting key parameters, instantly updating the CAD model while preserving design intent through semantic rules.
+                      <strong className="text-cyan-400 flex items-center gap-2"><Play className="w-4 h-4" />Demo 1:</strong> Watch how PRISM automates the redesign of a mechanical part by adjusting key parameters, instantly updating the CAD model while preserving design intent through semantic rules.
                     </p>
                   </div>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-8 mt-12">
                   <video className="w-300 h-300 object-cover" controls>
-                    <source src='assests/demo1.mp4' type="video/mp4" />
+                    <source src='assests/demo2.mp4' type="video/mp4" />
                   </video>
                   <div className="text-left flex flex-col justify-center" >
                     <p className="text-gray-300 text-lg">
-                      <strong className="text-cyan-400">Demo 1:</strong> Watch how PRISM automates the redesign of a mechanical part by adjusting key parameters, instantly updating the CAD model while preserving design intent through semantic rules.
+                      <strong className="text-cyan-400 flex items-center gap-2"><Play className="w-4 h-4" />Demo 2:</strong> Ontology interaction using Talk to your Graph. Explore how semantic relationships and design intent are captured and queried within PRISM's ontology engine, enabling intelligent reasoning about engineering data.
                     </p>
                   </div>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
-              <iframe src="assests/ATF_ontology_interactive-5.html" frameborder="0"></iframe>
+            {/* Interactive HTML embed (medium window) */}
+            <div className="mt-12">
+              <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2"><Globe className="w-5 h-5 text-cyan-400" />Interactive Ontology Explorer</h3>
+              <div className="max-w-8xl mx-auto bg-gray-900 border border-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div className="p-4 text-gray-300">
+                  <p className="text-sm">Interact with the ontology visualization. This embedded viewer is identical to the standalone demo and supports exploration and simple interactions. Use the full-screen link to open in a separate tab if you need more space.</p>
+                </div>
+                <div className="w-full h-96 bg-black">
+                  <iframe
+                    src="assests/ATF_ontology_interactive-5.html"
+                    title="ATF Ontology Interactive"
+                    className="w-full h-full border-0"
+                    sandbox="allow-scripts allow-same-origin allow-forms allow-modals"
+                  />
+                </div>
+                <div className="p-3 text-right bg-gray-900">
+                  <a href="/assests/ATF_ontology_interactive-5.html" target="_blank" rel="noopener noreferrer" className="text-cyan-400 underline">Open in new tab</a>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* FEATURES */}
         <section id="features" className="py-24 px-6 bg-gradient-to-t from-black to-gray-900">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-semibold text-center mb-12">Key Differentiators</h2>
+            <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-semibold text-center mb-12 flex items-center justify-center gap-3"><Zap className="w-5 h-5 text-cyan-400" /> Key Differentiators</h2>
             <ul className="grid md:grid-cols-2 gap-10 text-gray-300">
               <li><strong className="text-cyan-400">Open-Source Foundation:</strong> Built on open technologies — no vendor lock-in or licensing costs. Collaboration accelerates innovation.</li>
               <li><strong className="text-cyan-400">Automation-Driven:</strong> Parametric rules + semantic intelligence automate redesign cycles, drastically reducing manual effort and time-to-market.</li>
