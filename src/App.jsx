@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Zap, Play, Cpu, Mail, Globe } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 export default function App() {
   return (
@@ -23,7 +24,7 @@ export default function App() {
               <li><a href="#demos" className="hover:text-cyan-400 transition flex items-center gap-2"><Play className="w-4 h-4 text-cyan-400" />Demos</a></li>
             </ul>
             <div className="flex-shrink-0 flex items-center justify-center">
-              <img src="assests/PRISM_logo.svg" alt="PRISM Logo" className="h-14 w-auto" />
+              <img src="assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
             </div>
             <ul className="flex gap-8 text-sm">
               <li><a href="#features" className="hover:text-cyan-400 transition flex items-center gap-2"><Zap className="w-4 h-4 text-cyan-400" />Features</a></li>
@@ -34,16 +35,31 @@ export default function App() {
         </header>
 
         {/* HERO */}
-        <section id="hero" className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24">
-          <h1 className="text-6xl font-bold tracking-tight mb-6">
-            Automate <span className="text-cyan-400">Design</span>. Model <span className="text-cyan-400">Semantics</span>. Deliver Instantly.
-          </h1>
-          <p className="text-gray-400 max-w-2xl mb-10">
-            Parametric Redesigning and Semantic Intelligent Modeling Platform connecting Frontend → CAD → Ontology → ERP → Shop-floor.
-          </p>
-          <div className="flex gap-4">
-            <a href="#demos" className="px-6 py-3 bg-cyan-400 text-black rounded-md font-semibold hover:scale-105 transition">Watch Demo</a>
-            <a href="#contact" className="px-6 py-3 border border-cyan-400 text-cyan-400 rounded-md hover:bg-cyan-400/10 transition">Collaborate</a>
+        <section id="hero" className="min-h-screen flex flex-col justify-center items-center text-center px-6 pt-24 relative overflow-hidden">
+          {/* Background Image with Flip-Up Animation */}
+          <motion.div
+            initial={{ rotateX: 45, rotateY: 180, opacity: 0 }}
+            animate={{ rotateX:0, rotateY: 0, rotateY: 0, opacity: 1 }}
+            transition={{ duration: 5, ease: "easeOut" }}
+            className="absolute inset-0 z-0 flex items-center justify-center"
+            style={{ perspective: '1200px' }}
+          >
+            <img 
+              src="./assests/bg.png" 
+              alt="PRISM Platform Demo"
+              className="w-full h-full object-cover opacity-20"
+            />
+          </motion.div>
+          
+          {/* Hero Content (layered on top) */}
+          <div className="relative z-10">
+            <h1 className="text-6xl font-bold tracking-tight mb-6">
+              Automate <span className="text-cyan-400">Design</span>. Model <span className="text-cyan-400">Semantics</span>. Deliver Instantly.
+            </h1>
+            <div className="flex gap-4 justify-center">
+              <a href="#demos" className="px-6 py-3 bg-cyan-400 text-black rounded-md font-semibold hover:scale-105 transition">Watch Demo</a>
+              <a href="#contact" className="px-6 py-3 border border-cyan-400 text-cyan-400 rounded-md hover:bg-cyan-400/10 transition">Collaborate</a>
+            </div>
           </div>
         </section>
 
