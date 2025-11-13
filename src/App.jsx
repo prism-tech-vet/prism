@@ -22,7 +22,7 @@ export default function App() {
               <li><a href="#demos" className="hover:text-cyan-400 transition">Demos</a></li>
             </ul>
             <div className="flex-shrink-0 flex items-center justify-center">
-              <img src="./assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
+              <img src="./prism/assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
             </div>
             <ul className="flex gap-8 text-sm">
               <li><a href="#features" className="hover:text-cyan-400 transition">Features</a></li>
@@ -72,13 +72,11 @@ export default function App() {
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-12">Experience PRISM in Action</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1,2,3].map((i)=> (
                 <div key={i} className="rounded-xl overflow-hidden bg-gray-900 border border-gray-800 hover:border-cyan-400 transition">
-                  <video className="w-full h-60 object-cover" controls>
-                    <source src={`/videos/demo${i}.mp4`} type="video/mp4" />
+                  <video className="w-full h-100 object-cover" controls>
+                    <source src='./prism/assests/demo1.mp4' type="video/mp4" />
                   </video>
                 </div>
-              ))}
             </div>
           </div>
         </section>
@@ -107,7 +105,7 @@ export default function App() {
 
         {/* CONTACT */}
         <footer id="contact" className="py-20 text-center bg-gradient-to-b from-black to-gray-900">
-          <img src="./assests/logo.png" alt="PRISM Logo" className="mx-auto h-24 mb-4" />
+          <img src="./prism/assests/logo.png" alt="PRISM Logo" className="mx-auto h-24 mb-4" />
           <h4 className="text-xl font-semibold mb-2">Let’s Collaborate</h4>
           <p className="text-gray-400 mb-6">Reach us at <a href="mailto:prism.tech.vet@gmail.com" className="text-cyan-400 underline">prism.tech.vet@gmail.com</a></p>
           <a href="mailto:prism.tech.vet@gmail.com" className="px-6 py-3 bg-cyan-400 text-black rounded-md font-semibold hover:scale-105 transition">Contact Us</a>
