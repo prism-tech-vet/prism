@@ -22,7 +22,7 @@ export default function App() {
               <li><a href="#demos" className="hover:text-cyan-400 transition">Demos</a></li>
             </ul>
             <div className="flex-shrink-0 flex items-center justify-center">
-              <img src="./assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
+              <img src="assests/logo.png" alt="PRISM Logo" className="h-14 w-auto" />
             </div>
             <ul className="flex gap-8 text-sm">
               <li><a href="#features" className="hover:text-cyan-400 transition">Features</a></li>
@@ -71,12 +71,28 @@ export default function App() {
         <section id="demos" className="py-24 px-6 bg-black">
           <div className="max-w-6xl mx-auto text-center">
             <h2 className="text-3xl font-semibold mb-12">Experience PRISM in Action</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div key={i} className="rounded-xl overflow-hidden bg-gray-900 border border-gray-800 hover:border-cyan-400 transition">
-                  <video className="w-full h-100 object-cover" controls>
-                    <source src='./prism/assests/demo1.mp4' type="video/mp4" />
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                  <video className="w-300 h-300 object-cover" controls>
+                    <source src='assests/demo1.mp4' type="video/mp4" />
                   </video>
-                </div>
+                  <div className="text-left flex flex-col justify-center" >
+                    <p className="text-gray-300 text-lg">
+                      <strong className="text-cyan-400">Demo 1:</strong> Watch how PRISM automates the redesign of a mechanical part by adjusting key parameters, instantly updating the CAD model while preserving design intent through semantic rules.
+                    </p>
+                  </div>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+                  <video className="w-300 h-300 object-cover" controls>
+                    <source src='assests/demo1.mp4' type="video/mp4" />
+                  </video>
+                  <div className="text-left flex flex-col justify-center" >
+                    <p className="text-gray-300 text-lg">
+                      <strong className="text-cyan-400">Demo 1:</strong> Watch how PRISM automates the redesign of a mechanical part by adjusting key parameters, instantly updating the CAD model while preserving design intent through semantic rules.
+                    </p>
+                  </div>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
+              <iframe src="assests/ATF_ontology_interactive-5.html" frameborder="0"></iframe>
             </div>
           </div>
         </section>
@@ -91,6 +107,7 @@ export default function App() {
               <li><strong className="text-cyan-400">Graph Database Backbone:</strong> A graph-first semantic store enables reasoning, traceability, and scalable linking of design knowledge.</li>
               <li><strong className="text-cyan-400">Robust Engineering Pipeline:</strong> Connects CAD, PLM, ERP, and ontology — ensuring consistent data flow and traceability.</li>
               <li><strong className="text-cyan-400">Secure & Controlled Sharing:</strong> Fine-grained controls protect IP while allowing safe collaboration.</li>
+              <li><strong className="text-cyan-400">Extensible Architecture:</strong> Modular design allows easy integration of new tools, algorithms, and workflows as needs evolve.</li>
             </ul>
           </div>
         </section>
@@ -99,13 +116,13 @@ export default function App() {
         <section id="tech" className="py-16 bg-black text-center">
           <h3 className="text-xl font-semibold mb-6">Built on Open Innovation</h3>
           <div className="flex justify-center flex-wrap gap-6 text-gray-400">
-            {['FreeCAD','Protégé','Python','ERPNext','Neo4j','PostgreSQL'].map(t=>(<span key={t} className="px-4 py-2 border border-gray-700 rounded-md">{t}</span>))}
+            {['FreeCAD','Protégé','Python','ERPNext','GraphDB','PostgreSQL'].map(t=>(<span key={t} className="px-4 py-2 border border-gray-700 rounded-md">{t}</span>))}
           </div>
         </section>
 
         {/* CONTACT */}
         <footer id="contact" className="py-20 text-center bg-gradient-to-b from-black to-gray-900">
-          <img src="./prism/assests/logo.png" alt="PRISM Logo" className="mx-auto h-24 mb-4" />
+          <img src="assests/logo.png" alt="PRISM Logo" className="mx-auto h-24 mb-4" />
           <h4 className="text-xl font-semibold mb-2">Let’s Collaborate</h4>
           <p className="text-gray-400 mb-6">Reach us at <a href="mailto:prism.tech.vet@gmail.com" className="text-cyan-400 underline">prism.tech.vet@gmail.com</a></p>
           <a href="mailto:prism.tech.vet@gmail.com" className="px-6 py-3 bg-cyan-400 text-black rounded-md font-semibold hover:scale-105 transition">Contact Us</a>

@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 1000px;
+                 background-color: #ffffff;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 100%;
+                 height: 1000px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#FFCC00", "id": "Organization", "label": "Organization", "shape": "box"}, {"color": "#FFCC00", "id": "Foundation", "label": "Foundation", "shape": "box"}, {"color": "#FFCC00", "id": "AcademicInstitution", "label": "AcademicInstitution", "shape": "box"}, {"color": "#FFCC00", "id": "CorporatePartner", "label": "CorporatePartner", "shape": "box"}, {"color": "#FFCC00", "id": "InnovationNetwork", "label": "InnovationNetwork", "shape": "box"}, {"color": "#FFCC00", "id": "Person", "label": "Person", "shape": "box"}, {"color": "#FFCC00", "id": "Director", "label": "Director", "shape": "box"}, {"color": "#FFCC00", "id": "Student", "label": "Student", "shape": "box"}, {"color": "#FFCC00", "id": "Researcher", "label": "Researcher", "shape": "box"}, {"color": "#FFCC00", "id": "Faculty", "label": "Faculty", "shape": "box"}, {"color": "#FFCC00", "id": "Mentor", "label": "Mentor", "shape": "box"}, {"color": "#FFCC00", "id": "Program", "label": "Program", "shape": "box"}, {"color": "#FFCC00", "id": "InternshipProgram", "label": "InternshipProgram", "shape": "box"}, {"color": "#FFCC00", "id": "ImmersionProgram", "label": "ImmersionProgram", "shape": "box"}, {"color": "#FFCC00", "id": "CollaborativeProgram", "label": "CollaborativeProgram", "shape": "box"}, {"color": "#FFCC00", "id": "Fellowship", "label": "Fellowship", "shape": "box"}, {"color": "#FFCC00", "id": "Country", "label": "Country", "shape": "box"}, {"color": "#FFCC00", "id": "TechnologyDomain", "label": "TechnologyDomain", "shape": "box"}, {"color": "#FFCC00", "id": "Project", "label": "Project", "shape": "box"}, {"color": "#FFCC00", "id": "Partnership", "label": "Partnership", "shape": "box"}, {"color": "#FFCC00", "id": "FinancialStructure", "label": "FinancialStructure", "shape": "box"}, {"color": "#FFCC00", "id": "GlobalInternship", "label": "GlobalInternship", "shape": "box"}, {"color": "#FFCC00", "id": "Personnel", "label": "Personnel", "shape": "box"}, {"color": "#FFCC00", "id": "Advisor", "label": "Advisor", "shape": "box"}, {"color": "#FFCC00", "id": "Financials", "label": "Financials", "shape": "box"}, {"color": "#FFCC00", "id": "RevenueStream", "label": "RevenueStream", "shape": "box"}, {"color": "#FFCC00", "id": "FundingSource", "label": "FundingSource", "shape": "box"}, {"color": "#FFCC00", "id": "Expense", "label": "Expense", "shape": "box"}, {"color": "#FFCC00", "id": "Curriculum", "label": "Curriculum", "shape": "box"}, {"color": "#FFCC00", "id": "LearningOutcome", "label": "LearningOutcome", "shape": "box"}, {"color": "#FFCC00", "id": "AssessmentMethod", "label": "AssessmentMethod", "shape": "box"}, {"color": "#FFCC00", "id": "Certification", "label": "Certification", "shape": "box"}, {"color": "#FFCC00", "id": "Institution", "label": "Institution", "shape": "box"}, {"color": "#FFCC00", "id": "IndustryPartner", "label": "IndustryPartner", "shape": "box"}, {"color": "#FFCC00", "id": "AcademicPartner", "label": "AcademicPartner", "shape": "box"}, {"color": "#FFCC00", "id": "Geography", "label": "Geography", "shape": "box"}, {"color": "#FFCC00", "id": "Market", "label": "Market", "shape": "box"}, {"color": "#FFCC00", "id": "TechnologyInfrastructure", "label": "TechnologyInfrastructure", "shape": "box"}, {"color": "#FFCC00", "id": "Platform", "label": "Platform", "shape": "box"}, {"color": "#FFCC00", "id": "LMS", "label": "LMS", "shape": "box"}, {"color": "#FFCC00", "id": "CommunicationTool", "label": "CommunicationTool", "shape": "box"}, {"color": "#FFCC00", "id": "CompetitiveLandscape", "label": "CompetitiveLandscape", "shape": "box"}, {"color": "#FFCC00", "id": "Competitor", "label": "Competitor", "shape": "box"}, {"color": "#FFCC00", "id": "AlumniImpact", "label": "AlumniImpact", "shape": "box"}, {"color": "#FFCC00", "id": "Alumni", "label": "Alumni", "shape": "box"}, {"color": "#FFCC00", "id": "CareerOutcome", "label": "CareerOutcome", "shape": "box"}, {"color": "#FFCC00", "id": "Testimonial", "label": "Testimonial", "shape": "box"}, {"color": "#FFCC00", "id": "RiskCompliance", "label": "RiskCompliance", "shape": "box"}, {"color": "#FFCC00", "id": "LegalCompliance", "label": "LegalCompliance", "shape": "box"}, {"color": "#FFCC00", "id": "RiskManagement", "label": "RiskManagement", "shape": "box"}, {"color": "#A7E399", "id": "ontology.owl", "label": "ontology.owl", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasLocation", "label": "hasLocation", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasCohortSize", "label": "hasCohortSize", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasApplicationDeadline", "label": "hasApplicationDeadline", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasProgramFee", "label": "hasProgramFee", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasScholarship", "label": "hasScholarship", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasEligibility", "label": "hasEligibility", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasBudget", "label": "hasBudget", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasMarketFocus", "label": "hasMarketFocus", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasToolName", "label": "hasToolName", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasDifferentiator", "label": "hasDifferentiator", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasPlacementStat", "label": "hasPlacementStat", "shape": "ellipse"}, {"color": "#A7E399", "id": "hasComplianceStatus", "label": "hasComplianceStatus", "shape": "ellipse"}, {"color": "#A7E399", "id": "ArcticturnFoundation", "label": "ArcticturnFoundation", "shape": "ellipse"}, {"color": "#A7E399", "id": "SaurabhRShigwan", "label": "SaurabhRShigwan", "shape": "ellipse"}, {"color": "#A7E399", "id": "PranavMChaware", "label": "PranavMChaware", "shape": "ellipse"}, {"color": "#A7E399", "id": "RajRKumbhar", "label": "RajRKumbhar", "shape": "ellipse"}, {"color": "#A7E399", "id": "AnandSKhandekar", "label": "AnandSKhandekar", "shape": "ellipse"}, {"color": "#A7E399", "id": "GlobalInternshipProgram", "label": "GlobalInternshipProgram", "shape": "ellipse"}, {"color": "#A7E399", "id": "VietnamAITechProgram", "label": "VietnamAITechProgram", "shape": "ellipse"}, {"color": "#A7E399", "id": "ChinaIndustryImmersion", "label": "ChinaIndustryImmersion", "shape": "ellipse"}, {"color": "#A7E399", "id": "UNLVTechnologyProgram", "label": "UNLVTechnologyProgram", "shape": "ellipse"}, {"color": "#A7E399", "id": "UNLVDesignProgram", "label": "UNLVDesignProgram", "shape": "ellipse"}, {"color": "#A7E399", "id": "CGCDenmarkBusinessModelling", "label": "CGCDenmarkBusinessModelling", "shape": "ellipse"}, {"color": "#A7E399", "id": "ResearchFellowship", "label": "ResearchFellowship", "shape": "ellipse"}, {"color": "#A7E399", "id": "India", "label": "India", "shape": "ellipse"}, {"color": "#A7E399", "id": "Vietnam", "label": "Vietnam", "shape": "ellipse"}, {"color": "#A7E399", "id": "China", "label": "China", "shape": "ellipse"}, {"color": "#A7E399", "id": "USA", "label": "USA", "shape": "ellipse"}, {"color": "#A7E399", "id": "Denmark", "label": "Denmark", "shape": "ellipse"}, {"color": "#A7E399", "id": "ArtificialIntelligence", "label": "ArtificialIntelligence", "shape": "ellipse"}, {"color": "#A7E399", "id": "Technology", "label": "Technology", "shape": "ellipse"}, {"color": "#A7E399", "id": "Design", "label": "Design", "shape": "ellipse"}, {"color": "#A7E399", "id": "BusinessModeling", "label": "BusinessModeling", "shape": "ellipse"}, {"color": "#A7E399", "id": "Innovation", "label": "Innovation", "shape": "ellipse"}, {"color": "#A7E399", "id": "UNLV", "label": "UNLV", "shape": "ellipse"}, {"color": "#A7E399", "id": "MITInstituteDesignPune", "label": "MITInstituteDesignPune", "shape": "ellipse"}, {"color": "#A7E399", "id": "CTIFGlobalCapsule", "label": "CTIFGlobalCapsule", "shape": "ellipse"}, {"color": "#A7E399", "id": "UNLVPartnership", "label": "UNLVPartnership", "shape": "ellipse"}, {"color": "#A7E399", "id": "MITPunePartnership", "label": "MITPunePartnership", "shape": "ellipse"}, {"color": "#A7E399", "id": "CTIFPartnership", "label": "CTIFPartnership", "shape": "ellipse"}, {"color": "#A7E399", "id": "EngineeringStudent", "label": "EngineeringStudent", "shape": "ellipse"}, {"color": "#A7E399", "id": "TechGraduate", "label": "TechGraduate", "shape": "ellipse"}, {"color": "#A7E399", "id": "EarlyCareerProfessional", "label": "EarlyCareerProfessional", "shape": "ellipse"}, {"color": "#A7E399", "id": "AcademicResearcher", "label": "AcademicResearcher", "shape": "ellipse"}, {"color": "#A7E399", "id": "FacultyMember", "label": "FacultyMember", "shape": "ellipse"}, {"color": "#A7E399", "id": "UNLVResearchProject", "label": "UNLVResearchProject", "shape": "ellipse"}, {"color": "#A7E399", "id": "ArcticturnFinancialStructure", "label": "ArcticturnFinancialStructure", "shape": "ellipse"}, {"color": "#A7E399", "id": "CollaborationValue", "label": "CollaborationValue", "shape": "ellipse"}, {"color": "#A7E399", "id": "InnovationValue", "label": "InnovationValue", "shape": "ellipse"}, {"color": "#A7E399", "id": "SustainabilityValue", "label": "SustainabilityValue", "shape": "ellipse"}, {"color": "#A7E399", "id": "GlobalCitizenshipValue", "label": "GlobalCitizenshipValue", "shape": "ellipse"}, {"color": "#A7E399", "id": "Arcticturn_Global_Internship", "label": "Arcticturn_Global_Internship", "shape": "ellipse"}, {"color": "#A7E399", "id": "Raj_Ramakant_Kumbhar", "label": "Raj_Ramakant_Kumbhar", "shape": "ellipse"}, {"color": "#A7E399", "id": "MIT_Institute_Design", "label": "MIT_Institute_Design", "shape": "ellipse"}, {"color": "#A7E399", "id": "Pune", "label": "Pune", "shape": "ellipse"}, {"color": "#A7E399", "id": "Arcticturn_Alumni_1", "label": "Arcticturn_Alumni_1", "shape": "ellipse"}, {"color": "#A7E399", "id": "SamarthUday", "label": "SamarthUday", "shape": "ellipse"}, {"color": "#A7E399", "id": "BioinformaticsDLTools", "label": "BioinformaticsDLTools", "shape": "ellipse"}, {"color": "#A7E399", "id": "HarshithaIyer", "label": "HarshithaIyer", "shape": "ellipse"}, {"color": "#A7E399", "id": "EmailUserBehaviour", "label": "EmailUserBehaviour", "shape": "ellipse"}, {"color": "#A7E399", "id": "TanishqDabhade", "label": "TanishqDabhade", "shape": "ellipse"}, {"color": "#A7E399", "id": "AtmosphericWaterHarvesting", "label": "AtmosphericWaterHarvesting", "shape": "ellipse"}, {"color": "#A7E399", "id": "HarigovindJ", "label": "HarigovindJ", "shape": "ellipse"}, {"color": "#A7E399", "id": "EntertainmentEngineering", "label": "EntertainmentEngineering", "shape": "ellipse"}, {"color": "#A7E399", "id": "AbhishekPise", "label": "AbhishekPise", "shape": "ellipse"}, {"color": "#A7E399", "id": "BioinformaticsDLTools2", "label": "BioinformaticsDLTools2", "shape": "ellipse"}, {"color": "#A7E399", "id": "MayuriGhodke", "label": "MayuriGhodke", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiCloudOptimization", "label": "MultiCloudOptimization", "shape": "ellipse"}, {"color": "#A7E399", "id": "HitenShah", "label": "HitenShah", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiCloudOptimization2", "label": "MultiCloudOptimization2", "shape": "ellipse"}, {"color": "#A7E399", "id": "MayankJoshi", "label": "MayankJoshi", "shape": "ellipse"}, {"color": "#A7E399", "id": "FabricationCNC", "label": "FabricationCNC", "shape": "ellipse"}, {"color": "#A7E399", "id": "HetPatel", "label": "HetPatel", "shape": "ellipse"}, {"color": "#A7E399", "id": "FabricationCNC2", "label": "FabricationCNC2", "shape": "ellipse"}, {"color": "#A7E399", "id": "ShreyashVinchurkar", "label": "ShreyashVinchurkar", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiCloudOptimization3", "label": "MultiCloudOptimization3", "shape": "ellipse"}, {"color": "#A7E399", "id": "AmaanSayyed", "label": "AmaanSayyed", "shape": "ellipse"}, {"color": "#A7E399", "id": "DeepALK", "label": "DeepALK", "shape": "ellipse"}, {"color": "#A7E399", "id": "ShauryaDesai", "label": "ShauryaDesai", "shape": "ellipse"}, {"color": "#A7E399", "id": "EntertainmentEngineering2", "label": "EntertainmentEngineering2", "shape": "ellipse"}, {"color": "#A7E399", "id": "KaranChordia", "label": "KaranChordia", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation1", "label": "MultiBusinessModelInnovation1", "shape": "ellipse"}, {"color": "#A7E399", "id": "KanishqJangid", "label": "KanishqJangid", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation2", "label": "MultiBusinessModelInnovation2", "shape": "ellipse"}, {"color": "#A7E399", "id": "RajaramBhosle", "label": "RajaramBhosle", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation3", "label": "MultiBusinessModelInnovation3", "shape": "ellipse"}, {"color": "#A7E399", "id": "HarshwardhanPatil", "label": "HarshwardhanPatil", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation4", "label": "MultiBusinessModelInnovation4", "shape": "ellipse"}, {"color": "#A7E399", "id": "ChaitraliJadhav", "label": "ChaitraliJadhav", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation5", "label": "MultiBusinessModelInnovation5", "shape": "ellipse"}, {"color": "#A7E399", "id": "OmGhotukle", "label": "OmGhotukle", "shape": "ellipse"}, {"color": "#A7E399", "id": "MultiBusinessModelInnovation6", "label": "MultiBusinessModelInnovation6", "shape": "ellipse"}, {"color": "#A7E399", "id": "SuhaniKolhatkar", "label": "SuhaniKolhatkar", "shape": "ellipse"}, {"color": "#A7E399", "id": "CableDrivenRobots", "label": "CableDrivenRobots", "shape": "ellipse"}, {"color": "#A7E399", "id": "PranotiKulkarni", "label": "PranotiKulkarni", "shape": "ellipse"}, {"color": "#A7E399", "id": "DeepALK2", "label": "DeepALK2", "shape": "ellipse"}, {"color": "#A7E399", "id": "SohamDhore", "label": "SohamDhore", "shape": "ellipse"}, {"color": "#A7E399", "id": "GraphNNTraining", "label": "GraphNNTraining", "shape": "ellipse"}, {"color": "#A7E399", "id": "HerambChaudhari", "label": "HerambChaudhari", "shape": "ellipse"}, {"color": "#A7E399", "id": "CovidTrendPrediction1", "label": "CovidTrendPrediction1", "shape": "ellipse"}, {"color": "#A7E399", "id": "ShubhanPunde", "label": "ShubhanPunde", "shape": "ellipse"}, {"color": "#A7E399", "id": "CovidTrendPrediction2", "label": "CovidTrendPrediction2", "shape": "ellipse"}, {"color": "#A7E399", "id": "RajnandiniJadhav", "label": "RajnandiniJadhav", "shape": "ellipse"}, {"color": "#A7E399", "id": "MSTParallel", "label": "MSTParallel", "shape": "ellipse"}, {"color": "#A7E399", "id": "IshaanPathare", "label": "IshaanPathare", "shape": "ellipse"}, {"color": "#A7E399", "id": "CovidTrendPrediction3", "label": "CovidTrendPrediction3", "shape": "ellipse"}, {"color": "#A7E399", "id": "SwarangiMundhe", "label": "SwarangiMundhe", "shape": "ellipse"}, {"color": "#A7E399", "id": "F1TenthRacing", "label": "F1TenthRacing", "shape": "ellipse"}, {"color": "#A7E399", "id": "AtharvaJadhav", "label": "AtharvaJadhav", "shape": "ellipse"}, {"color": "#A7E399", "id": "CovidTrendPrediction4", "label": "CovidTrendPrediction4", "shape": "ellipse"}, {"color": "#A7E399", "id": "DevyaniZarekar", "label": "DevyaniZarekar", "shape": "ellipse"}, {"color": "#A7E399", "id": "DNNDecompilation", "label": "DNNDecompilation", "shape": "ellipse"}, {"color": "#A7E399", "id": "SumantPakhare", "label": "SumantPakhare", "shape": "ellipse"}, {"color": "#A7E399", "id": "GasDeliveryDrone", "label": "GasDeliveryDrone", "shape": "ellipse"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "color": "#A0A0A0", "from": "Organization", "label": "is_a", "to": "Foundation"}, {"arrows": "to", "color": "#A0A0A0", "from": "Organization", "label": "is_a", "to": "AcademicInstitution"}, {"arrows": "to", "color": "#A0A0A0", "from": "Organization", "label": "is_a", "to": "CorporatePartner"}, {"arrows": "to", "color": "#A0A0A0", "from": "Organization", "label": "is_a", "to": "InnovationNetwork"}, {"arrows": "to", "color": "#A0A0A0", "from": "Person", "label": "is_a", "to": "Director"}, {"arrows": "to", "color": "#A0A0A0", "from": "Person", "label": "is_a", "to": "Student"}, {"arrows": "to", "color": "#A0A0A0", "from": "Person", "label": "is_a", "to": "Researcher"}, {"arrows": "to", "color": "#A0A0A0", "from": "Person", "label": "is_a", "to": "Faculty"}, {"arrows": "to", "color": "#A0A0A0", "from": "Person", "label": "is_a", "to": "Mentor"}, {"arrows": "to", "color": "#A0A0A0", "from": "Personnel", "label": "is_a", "to": "Director"}, {"arrows": "to", "color": "#A0A0A0", "from": "Personnel", "label": "is_a", "to": "Mentor"}, {"arrows": "to", "color": "#A0A0A0", "from": "Personnel", "label": "is_a", "to": "Advisor"}, {"arrows": "to", "color": "#A0A0A0", "from": "Program", "label": "is_a", "to": "InternshipProgram"}, {"arrows": "to", "color": "#A0A0A0", "from": "Program", "label": "is_a", "to": "ImmersionProgram"}, {"arrows": "to", "color": "#A0A0A0", "from": "Program", "label": "is_a", "to": "CollaborativeProgram"}, {"arrows": "to", "color": "#A0A0A0", "from": "Program", "label": "is_a", "to": "Fellowship"}, {"arrows": "to", "color": "#A0A0A0", "from": "Program", "label": "is_a", "to": "GlobalInternship"}, {"arrows": "to", "color": "#A0A0A0", "from": "Financials", "label": "is_a", "to": "RevenueStream"}, {"arrows": "to", "color": "#A0A0A0", "from": "Financials", "label": "is_a", "to": "FundingSource"}, {"arrows": "to", "color": "#A0A0A0", "from": "Financials", "label": "is_a", "to": "Expense"}, {"arrows": "to", "color": "#A0A0A0", "from": "Curriculum", "label": "is_a", "to": "LearningOutcome"}, {"arrows": "to", "color": "#A0A0A0", "from": "Curriculum", "label": "is_a", "to": "AssessmentMethod"}, {"arrows": "to", "color": "#A0A0A0", "from": "Curriculum", "label": "is_a", "to": "Certification"}, {"arrows": "to", "color": "#A0A0A0", "from": "Institution", "label": "is_a", "to": "IndustryPartner"}, {"arrows": "to", "color": "#A0A0A0", "from": "Institution", "label": "is_a", "to": "AcademicPartner"}, {"arrows": "to", "color": "#A0A0A0", "from": "TechnologyInfrastructure", "label": "is_a", "to": "Platform"}, {"arrows": "to", "color": "#A0A0A0", "from": "Platform", "label": "is_a", "to": "LMS"}, {"arrows": "to", "color": "#A0A0A0", "from": "Platform", "label": "is_a", "to": "CommunicationTool"}, {"arrows": "to", "color": "#A0A0A0", "from": "CompetitiveLandscape", "label": "is_a", "to": "Competitor"}, {"arrows": "to", "color": "#A0A0A0", "from": "AlumniImpact", "label": "is_a", "to": "Alumni"}, {"arrows": "to", "color": "#A0A0A0", "from": "AlumniImpact", "label": "is_a", "to": "CareerOutcome"}, {"arrows": "to", "color": "#A0A0A0", "from": "AlumniImpact", "label": "is_a", "to": "Testimonial"}, {"arrows": "to", "color": "#A0A0A0", "from": "RiskCompliance", "label": "is_a", "to": "LegalCompliance"}, {"arrows": "to", "color": "#A0A0A0", "from": "RiskCompliance", "label": "is_a", "to": "RiskManagement"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "hasDirector", "to": "Director"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasDirector", "to": "Director"}, {"arrows": "to", "color": "#F7374F", "from": "Person", "label": "participatesIn", "to": "Program"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "offersProgram", "to": "Program"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "hasPartner", "to": "Organization"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "operatesIn", "to": "Country"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "operatesIn", "to": "Geography"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "focusesOn", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#F7374F", "from": "Mentor", "label": "mentors", "to": "Student"}, {"arrows": "to", "color": "#F7374F", "from": "Student", "label": "worksOn", "to": "Project"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "collaboratesWith", "to": "AcademicInstitution"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "hasPartnership", "to": "Partnership"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "targets", "to": "Person"}, {"arrows": "to", "color": "#F7374F", "from": "Foundation", "label": "hasFinancialStructure", "to": "FinancialStructure"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasMentor", "to": "Mentor"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasAdvisor", "to": "Advisor"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasFunding", "to": "FundingSource"}, {"arrows": "to", "color": "#F7374F", "from": "Financials", "label": "hasRevenueStream", "to": "RevenueStream"}, {"arrows": "to", "color": "#F7374F", "from": "Financials", "label": "hasExpense", "to": "Expense"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasLearningOutcome", "to": "LearningOutcome"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasAssessment", "to": "AssessmentMethod"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasCertification", "to": "Certification"}, {"arrows": "to", "color": "#F7374F", "from": "Partnership", "label": "partnersWith", "to": "Institution"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "usesPlatform", "to": "Platform"}, {"arrows": "to", "color": "#F7374F", "from": "CompetitiveLandscape", "label": "hasCompetitor", "to": "Competitor"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "hasAlumni", "to": "Alumni"}, {"arrows": "to", "color": "#F7374F", "from": "Alumni", "label": "leadsToOutcome", "to": "CareerOutcome"}, {"arrows": "to", "color": "#F7374F", "from": "Alumni", "label": "providesTestimonial", "to": "Testimonial"}, {"arrows": "to", "color": "#F7374F", "from": "Program", "label": "ensuresCompliance", "to": "RiskCompliance"}, {"arrows": "to", "color": "#E2E2B6", "from": "ArcticturnFoundation", "label": "instance_of", "to": "Foundation"}, {"arrows": "to", "color": "#E2E2B6", "from": "SaurabhRShigwan", "label": "instance_of", "to": "Director"}, {"arrows": "to", "color": "#E2E2B6", "from": "PranavMChaware", "label": "instance_of", "to": "Director"}, {"arrows": "to", "color": "#E2E2B6", "from": "RajRKumbhar", "label": "instance_of", "to": "Director"}, {"arrows": "to", "color": "#E2E2B6", "from": "AnandSKhandekar", "label": "instance_of", "to": "Director"}, {"arrows": "to", "color": "#E2E2B6", "from": "Raj_Ramakant_Kumbhar", "label": "instance_of", "to": "Director"}, {"arrows": "to", "color": "#E2E2B6", "from": "GlobalInternshipProgram", "label": "instance_of", "to": "InternshipProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "VietnamAITechProgram", "label": "instance_of", "to": "ImmersionProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "ChinaIndustryImmersion", "label": "instance_of", "to": "ImmersionProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "UNLVTechnologyProgram", "label": "instance_of", "to": "CollaborativeProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "UNLVDesignProgram", "label": "instance_of", "to": "CollaborativeProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "CGCDenmarkBusinessModelling", "label": "instance_of", "to": "CollaborativeProgram"}, {"arrows": "to", "color": "#E2E2B6", "from": "ResearchFellowship", "label": "instance_of", "to": "Fellowship"}, {"arrows": "to", "color": "#E2E2B6", "from": "India", "label": "instance_of", "to": "Country"}, {"arrows": "to", "color": "#E2E2B6", "from": "Vietnam", "label": "instance_of", "to": "Country"}, {"arrows": "to", "color": "#E2E2B6", "from": "China", "label": "instance_of", "to": "Country"}, {"arrows": "to", "color": "#E2E2B6", "from": "USA", "label": "instance_of", "to": "Country"}, {"arrows": "to", "color": "#E2E2B6", "from": "Denmark", "label": "instance_of", "to": "Country"}, {"arrows": "to", "color": "#E2E2B6", "from": "ArtificialIntelligence", "label": "instance_of", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#E2E2B6", "from": "Technology", "label": "instance_of", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#E2E2B6", "from": "Design", "label": "instance_of", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#E2E2B6", "from": "BusinessModeling", "label": "instance_of", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#E2E2B6", "from": "Innovation", "label": "instance_of", "to": "TechnologyDomain"}, {"arrows": "to", "color": "#E2E2B6", "from": "UNLV", "label": "instance_of", "to": "AcademicInstitution"}, {"arrows": "to", "color": "#E2E2B6", "from": "MITInstituteDesignPune", "label": "instance_of", "to": "AcademicInstitution"}, {"arrows": "to", "color": "#E2E2B6", "from": "CTIFGlobalCapsule", "label": "instance_of", "to": "InnovationNetwork"}, {"arrows": "to", "color": "#E2E2B6", "from": "UNLVPartnership", "label": "instance_of", "to": "Partnership"}, {"arrows": "to", "color": "#E2E2B6", "from": "MITPunePartnership", "label": "instance_of", "to": "Partnership"}, {"arrows": "to", "color": "#E2E2B6", "from": "CTIFPartnership", "label": "instance_of", "to": "Partnership"}, {"arrows": "to", "color": "#E2E2B6", "from": "EngineeringStudent", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "TechGraduate", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "SamarthUday", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HarshithaIyer", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "TanishqDabhade", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HarigovindJ", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "AbhishekPise", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "MayuriGhodke", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HitenShah", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "MayankJoshi", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HetPatel", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "ShreyashVinchurkar", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "AmaanSayyed", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "ShauryaDesai", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "KaranChordia", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "KanishqJangid", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "RajaramBhosle", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HarshwardhanPatil", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "ChaitraliJadhav", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "OmGhotukle", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "SuhaniKolhatkar", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "PranotiKulkarni", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "SohamDhore", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "HerambChaudhari", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "ShubhanPunde", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "RajnandiniJadhav", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "IshaanPathare", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "SwarangiMundhe", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "AtharvaJadhav", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "DevyaniZarekar", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "SumantPakhare", "label": "instance_of", "to": "Student"}, {"arrows": "to", "color": "#E2E2B6", "from": "EarlyCareerProfessional", "label": "instance_of", "to": "Person"}, {"arrows": "to", "color": "#E2E2B6", "from": "AcademicResearcher", "label": "instance_of", "to": "Researcher"}, {"arrows": "to", "color": "#E2E2B6", "from": "FacultyMember", "label": "instance_of", "to": "Faculty"}, {"arrows": "to", "color": "#E2E2B6", "from": "UNLVResearchProject", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "BioinformaticsDLTools", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "EmailUserBehaviour", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "AtmosphericWaterHarvesting", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "EntertainmentEngineering", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "BioinformaticsDLTools2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiCloudOptimization", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiCloudOptimization2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "FabricationCNC", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "FabricationCNC2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiCloudOptimization3", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "DeepALK", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "EntertainmentEngineering2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation1", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation3", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation4", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation5", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MultiBusinessModelInnovation6", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "CableDrivenRobots", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "DeepALK2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "GraphNNTraining", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "CovidTrendPrediction1", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "CovidTrendPrediction2", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "MSTParallel", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "CovidTrendPrediction3", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "F1TenthRacing", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "CovidTrendPrediction4", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "DNNDecompilation", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "GasDeliveryDrone", "label": "instance_of", "to": "Project"}, {"arrows": "to", "color": "#E2E2B6", "from": "ArcticturnFinancialStructure", "label": "instance_of", "to": "FinancialStructure"}, {"arrows": "to", "color": "#E2E2B6", "from": "Arcticturn_Global_Internship", "label": "instance_of", "to": "GlobalInternship"}, {"arrows": "to", "color": "#E2E2B6", "from": "MIT_Institute_Design", "label": "instance_of", "to": "AcademicPartner"}, {"arrows": "to", "color": "#E2E2B6", "from": "Pune", "label": "instance_of", "to": "Geography"}, {"arrows": "to", "color": "#E2E2B6", "from": "Arcticturn_Alumni_1", "label": "instance_of", "to": "Alumni"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"layout": {"improvedLayout": true}, "physics": {"enabled": true, "forceAtlas2Based": {"gravitationalConstant": -150, "centralGravity": 0.01, "springLength": 400, "springConstant": 0.03, "damping": 0.8, "avoidOverlap": 1}, "minVelocity": 0.75, "solver": "forceAtlas2Based", "stabilization": {"enabled": true, "iterations": 200, "updateInterval": 50, "onlyDynamicEdges": false, "fit": true}}, "nodes": {"font": {"size": 42}, "scaling": {"min": 30, "max": 50}}, "edges": {"color": {"color": "#A0A0A0", "inherit": false}, "font": {"size": 38, "align": "middle"}, "smooth": {"type": "dynamic"}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
